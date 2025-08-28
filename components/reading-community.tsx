@@ -26,7 +26,7 @@ export function ReadingCommunity() {
             </CardHeader>
             <CardContent>
               <Button asChild variant="outline" className="w-full bg-transparent">
-                <Link href="/discussies">Doe Mee</Link>
+                <Link href="/artikelen">Doe Mee</Link>
               </Button>
             </CardContent>
           </Card>
@@ -71,7 +71,7 @@ export function ReadingCommunity() {
             </CardHeader>
             <CardContent>
               <Button asChild variant="outline" className="w-full bg-transparent">
-                <Link href="/aanbevelingen">Ontdek</Link>
+                <Link href="/recensies">Ontdek</Link>
               </Button>
             </CardContent>
           </Card>

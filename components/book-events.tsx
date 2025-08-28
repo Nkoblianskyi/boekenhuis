@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calendar, MapPin, Users, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function BookEvents() {
   const events = [
@@ -86,15 +87,21 @@ export function BookEvents() {
                   </div>
                 </div>
 
-                <Button className="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white">Aanmelden</Button>
+                <Button asChild className="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white">
+                  <Link href="/contact">Aanmelden</Link>
+                </Button>
               </CardContent>
             </Card>
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" className="border-orange-300 text-orange-700 hover:bg-orange-50 bg-transparent">
-            Bekijk alle evenementen
+          <Button
+            asChild
+            variant="outline"
+            className="border-orange-300 text-orange-700 hover:bg-orange-50 bg-transparent"
+          >
+            <Link href="/contact">Bekijk alle evenementen</Link>
           </Button>
         </div>
       </div>

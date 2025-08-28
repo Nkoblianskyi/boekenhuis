@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BookOpen, Lightbulb, Target, Heart } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function ReadingTips() {
   const tips = [
@@ -88,7 +90,9 @@ export function ReadingTips() {
 
         {/* Call to Action */}
         <div className="text-center mt-12">
-          
+          <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white">
+            <Link href="/boek-quiz">Test Je Leeskennis</Link>
+          </Button>
         </div>
       </div>
     </section>
