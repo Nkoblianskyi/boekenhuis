@@ -281,20 +281,6 @@ export default function ArticlesPage() {
             )}
           </div>
         </section>
-
-        {/* Newsletter CTA */}
-        <section className="py-16 bg-primary/5">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Mis Geen Enkel Artikel</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Schrijf je in voor onze nieuwsbrief en ontvang wekelijks de beste literaire artikelen en analyses.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input type="email" placeholder="je@email.nl" className="flex-1" />
-              <Button size="lg">Inschrijven</Button>
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   )
