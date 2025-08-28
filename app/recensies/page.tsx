@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -10,107 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Clock, User, Search, Star, BookOpen } from "lucide-react"
 import Link from "next/link"
-
-const reviews = [
-  {
-    id: 1,
-    title: "De Avond is Ongemak",
-    author: "Marieke Lucas Rijneveld",
-    reviewer: "Emma van der Berg",
-    rating: 4.5,
-    readTime: "8 min",
-    publishDate: "12 maart 2025",
-    genre: "Literaire Fictie",
-    isbn: "9789025446208",
-    publisher: "Prometheus",
-    pages: 286,
-    excerpt:
-      "Een aangrijpend verhaal over verlies, rouw en het vinden van hoop in de donkerste momenten van het leven.",
-    review: "Rijneveld toont opnieuw hun meesterschap in het vangen van emoties in prachtige, poëtische taal.",
-    image: "/ongemak.jpg",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Het Diner",
-    author: "Herman Koch",
-    reviewer: "Pieter Janssen",
-    rating: 4.2,
-    readTime: "6 min",
-    publishDate: "10 maart 2025",
-    genre: "Thriller",
-    isbn: "9789041711441",
-    publisher: "Ambo Anthos",
-    pages: 304,
-    excerpt: "Een psychologische thriller die je aan de rand van je stoel houdt tot de laatste pagina.",
-    review: "Koch weet spanning op te bouwen zoals weinig anderen. Een meesterwerk van psychologische manipulatie.",
-    image: "/diner.jpg",
-  },
-  {
-    id: 3,
-    title: "Turks Fruit",
-    author: "Jan Wolkers",
-    reviewer: "Thomas Bakker",
-    rating: 4.8,
-    readTime: "10 min",
-    publishDate: "8 maart 2025",
-    genre: "Klassiek",
-    isbn: "9789029538725",
-    publisher: "Meulenhoff",
-    pages: 208,
-    excerpt: "Een tijdloze Nederlandse klassieker over liefde, passie en het leven in al zijn facetten.",
-    review: "Wolkers' meesterwerk blijft na al die jaren nog steeds ontroeren en verbazen. Onverminderd krachtig.",
-    image: "/fruit.jpg",
-  },
-  {
-    id: 4,
-    title: "De Ontdekking van de Hemel",
-    author: "Harry Mulisch",
-    reviewer: "Emma van der Berg",
-    rating: 4.7,
-    readTime: "12 min",
-    publishDate: "5 maart 2025",
-    genre: "Literaire Fictie",
-    isbn: "9789023456789",
-    publisher: "De Bezige Bij",
-    pages: 900,
-    excerpt: "Mulisch' magnum opus - een filosofische roman over vriendschap, liefde en het goddelijke.",
-    review: "Een monumentaal werk dat de lezer meeneemt op een reis door geschiedenis, filosofie en menselijkheid.",
-    image: "/hemel.jpg",
-  },
-  {
-    id: 5,
-    title: "Bonita Avenue",
-    author: "Peter Buwalda",
-    reviewer: "Sophie de Wit",
-    rating: 4.1,
-    readTime: "9 min",
-    publishDate: "2 maart 2025",
-    genre: "Literaire Fictie",
-    isbn: "9789023456123",
-    publisher: "De Bezige Bij",
-    pages: 635,
-    excerpt: "Een complexe familieroman die de donkere kanten van het moderne leven blootlegt.",
-    review: "Buwalda schrijft met precisie over de complexiteit van menselijke relaties en moderne technologie.",
-    image: "/avenue.jpg",
-  },
-  {
-    id: 6,
-    title: "Oeroeg",
-    author: "Hella S. Haasse",
-    reviewer: "Thomas Bakker",
-    rating: 4.4,
-    readTime: "7 min",
-    publishDate: "28 februari 2025",
-    genre: "Klassiek",
-    isbn: "9789021400112",
-    publisher: "Querido",
-    pages: 128,
-    excerpt: "Een indringende novelle over vriendschap en de gevolgen van kolonialisme.",
-    review: "Haasse toont in dit korte maar krachtige verhaal de complexiteit van koloniale verhoudingen.",
-    image: "/haasse.jpg",
-  },
-]
+import { reviews, getFeaturedReview } from "@/data/reviews"
 
 const genres = ["Alle Genres", "Literaire Fictie", "Thriller", "Klassiek", "Young Adult", "Fantasy", "Non-fictie"]
 const ratings = ["Alle Beoordelingen", "5 sterren", "4+ sterren", "3+ sterren"]
@@ -120,7 +18,10 @@ export default function ReviewsPage() {
   const [selectedGenre, setSelectedGenre] = useState("Alle Genres")
   const [selectedRating, setSelectedRating] = useState("Alle Beoordelingen")
 
-  const filteredReviews = reviews.filter((review) => {
+  const featuredReview = getFeaturedReview()
+  const regularReviews = reviews.filter((review) => !review.featured)
+
+  const filteredReviews = regularReviews.filter((review) => {
     const matchesSearch =
       review.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       review.author.toLowerCase().includes(searchTerm.toLowerCase())
@@ -133,8 +34,6 @@ export default function ReviewsPage() {
 
     return matchesSearch && matchesGenre && matchesRating
   })
-
-  const featuredReview = reviews.find((review) => review.featured)
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -153,7 +52,6 @@ export default function ReviewsPage() {
 
   return (
     <div className="min-h-screen">
-
       <main>
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-background to-muted py-16">
@@ -240,7 +138,7 @@ export default function ReviewsPage() {
                     <p className="text-lg text-muted-foreground mb-4">door {featuredReview.author}</p>
                     <p className="text-muted-foreground mb-6 leading-relaxed">{featuredReview.excerpt}</p>
                     <blockquote className="border-l-4 border-primary pl-4 mb-6 italic text-foreground">
-                      "{featuredReview.review}"
+                      "{featuredReview.fullReview.intro.substring(0, 150)}..."
                     </blockquote>
                     <div className="flex items-center justify-between text-sm text-muted-foreground mb-6">
                       <span className="flex items-center">
@@ -277,50 +175,48 @@ export default function ReviewsPage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredReviews
-                  .filter((review) => !review.featured)
-                  .map((review) => (
-                    <Card key={review.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img
-                          src={review.image || "/placeholder.svg?height=300&width=400"}
-                          alt={review.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
+                {filteredReviews.map((review) => (
+                  <Card key={review.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={review.image || "/placeholder.svg?height=300&width=400"}
+                        alt={review.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between mb-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {review.genre}
+                        </Badge>
+                        <div className="flex items-center gap-1">
+                          {renderStars(review.rating)}
+                          <span className="ml-1 text-xs font-medium">{review.rating}</span>
+                        </div>
                       </div>
-                      <CardHeader className="pb-3">
-                        <div className="flex items-start justify-between mb-2">
-                          <Badge variant="secondary" className="text-xs">
-                            {review.genre}
-                          </Badge>
-                          <div className="flex items-center gap-1">
-                            {renderStars(review.rating)}
-                            <span className="ml-1 text-xs font-medium">{review.rating}</span>
-                          </div>
-                        </div>
-                        <CardTitle className="text-base group-hover:text-primary transition-colors line-clamp-2 leading-tight">
-                          <Link href={`/recensies/${review.id}`}>{review.title}</Link>
-                        </CardTitle>
-                        <CardDescription className="text-sm">door {review.author}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="pt-0">
-                        <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{review.excerpt}</p>
-                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
-                          <span className="flex items-center">
-                            <User className="h-3 w-3 mr-1" />
-                            {review.reviewer}
-                          </span>
-                          <span className="flex items-center">
-                            <Clock className="h-3 w-3 mr-1" />
-                            {review.readTime}
-                          </span>
-                        </div>
-                        <Button asChild variant="outline" size="sm" className="w-full bg-transparent">
-                          <Link href={`/recensies/${review.id}`}>Lees Recensie</Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
+                      <CardTitle className="text-base group-hover:text-primary transition-colors line-clamp-2 leading-tight">
+                        <Link href={`/recensies/${review.id}`}>{review.title}</Link>
+                      </CardTitle>
+                      <CardDescription className="text-sm">door {review.author}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{review.excerpt}</p>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+                        <span className="flex items-center">
+                          <User className="h-3 w-3 mr-1" />
+                          {review.reviewer}
+                        </span>
+                        <span className="flex items-center">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {review.readTime}
+                        </span>
+                      </div>
+                      <Button asChild variant="outline" size="sm" className="w-full bg-transparent">
+                        <Link href={`/recensies/${review.id}`}>Lees Recensie</Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             )}
           </div>
