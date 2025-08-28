@@ -67,7 +67,7 @@ const milestones = [
     description: "Thomas voegt zich bij het team. We lanceren onze interactieve boek quiz en bereiken 10.000 lezers.",
   },
   {
-    year: "2024",
+    year: "2025",
     title: "Nieuwe Website",
     description:
       "Complete vernieuwing van onze website met verbeterde gebruikerservaring en meer interactieve features.",
