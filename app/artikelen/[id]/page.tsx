@@ -328,10 +328,6 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
                 </span>
                 <span>{article.publishDate}</span>
               </div>
-              <Button variant="outline" size="sm" className="bg-transparent">
-                <Share2 className="h-4 w-4 mr-2" />
-                Delen
-              </Button>
             </div>
           </div>
         </section>
